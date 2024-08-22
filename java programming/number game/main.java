@@ -1,3 +1,4 @@
+
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
@@ -8,11 +9,14 @@ public class main {
         int guesslimit = 0;
         if(limit<=30){
             guesslimit = 3;
+            System.out.println("You have 3 guesses only");
         }
-        else if(limit<=100 && limit <30){
+        else if(limit<=100 && limit >30){
             guesslimit = 6;
+            System.out.println("You have 6 guesses only");
         }
         else{
+            System.out.println("You have 10 guesses only");
             guesslimit=10;
         }
         return guesslimit;
@@ -20,22 +24,23 @@ public class main {
     public static int checkguess(int limit, int guesses,boolean repeat){
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
-        System.out.println("limit is now : "+ limit);
+        System.out.println("Range is now : "+ limit);
         int comp = random.nextInt(limit);
         int count =0;
+        int value;
         while (true) { 
             count++;
             guesses ++;
             int user_guesses = 0;
-            int value = checklimit(limit);
             if(repeat){    
+                value = checklimit(limit);
                 if (value != 0){
                     while(count > value){
                         System.out.println("You have reached your limit!");
                         return 0;
                     }
                 }
-            }            
+            }           
             try {
                 System.out.print("Enter your Guess :");
                 user_guesses = scanner.nextInt();
@@ -47,12 +52,15 @@ public class main {
                 System.out.println("You got Right!");
                 break;
             }
+            else if(user_guesses == -1){
+                break;
+            }
             else{
                 if(user_guesses < comp){
-                    System.out.println("Your guess is smaller than the number!");
-                }
+                    System.out.println("Hint- Computer Guess is Larger then your Guess!");
+                }   
                 else if(user_guesses > comp){
-                    System.out.println("Your guess is larger then the number");
+                    System.out.println("Hint- Computer Guess is Smaller then your Guess!");
                 }
                 continue;
                 
@@ -92,9 +100,13 @@ public class main {
         int guesses = 0;
         int limit = 1;
         boolean again = true;
+        int ans1;
         while(true){
-            System.out.println("Welcome to number gussing game\n1) Play with infinite chances\n2) Play with limited chances\n3) EXIT \n(1 or 2 or exit)\nEnter : ");
-            int ans1 = scanner.nextInt();
+            again = true;
+            System.out.print("-------------------------------\nWelcome to number gussing game\n-------------------------------\n1) Play with infinite chances\n2) Play with limited chances\n3) EXIT \nPress (1/2/3)\nPress : ");
+            ans1 = scanner.nextInt();
+
+            // System.out.println("you entered " + ans1);
             boolean repeat= false;
             if(ans1 == 1){
                 repeat = false;
@@ -102,9 +114,11 @@ public class main {
             else if(ans1 == 2){
                 repeat = true;
             }
+            // System.out.println("you entered " + ans1);
             if(ans1 == 1){    
+                System.out.println("---------------------------------------------------\nIn this game you have infinite chances,\nto guess the number choosen by the computer\nRules-\n-You have to enter the range in which,\n the computer will choose the number \n-if you want to exit or give up ,\n while guessing the number just enter '-1'\n---------------------------------------------------\n");
                 while(again){
-                    System.out.println("Enter the limit (0-?): ");
+                    System.out.print("Starting...\nEnter the range (0-?): ");
                     limit = checkint(limit);
                     if(limit == -1){
                         System.exit(0);
@@ -112,16 +126,17 @@ public class main {
                     checkguess(limit, guesses,repeat);
                     while(true){
                         if(askagain()){
-
+                            
                             again = false;
                             break;
                         }break;
                     }
                 }
             }
-            else if( ans1 == 2){
+            else if(ans1 == 2){
+                // System.out.println("Entered the second if");
                 while(again){
-                    System.out.println("Enter the limit (0-?): ");
+                    System.out.print("Starting...\nEnter the range (0-?): ");                    
                     limit = checkint(limit);
                     if(limit == -1){
                         System.exit(0);
@@ -137,7 +152,11 @@ public class main {
                 }
             }
             else if(ans1 == 3){
+                System.out.println("exiting...");
                 System.exit(0);
+            }
+            else{
+                System.out.println("there is some issue please check it");
             }
         }
     }
