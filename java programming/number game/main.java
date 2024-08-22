@@ -5,18 +5,18 @@ import java.util.Scanner;
 
 public class main {
 
-    public static int checklimit(int limit){
+    public static int checklimit(int limit, int count){
         int guesslimit = 0;
         if(limit<=30){
             guesslimit = 3;
-            System.out.println("You have 3 guesses only");
+            System.out.println("Guesses Left - " + (4 - count) + "\n--------------------------------");
         }
         else if(limit<=100 && limit >30){
             guesslimit = 6;
-            System.out.println("You have 6 guesses only");
+            System.out.println("Guesses Left - " + (7 - count) + "\n--------------------------------");
         }
         else{
-            System.out.println("You have 10 guesses only");
+            System.out.println("Guesses Left - " + (11 - count) + "\n--------------------------------");
             guesslimit=10;
         }
         return guesslimit;
@@ -33,7 +33,7 @@ public class main {
             guesses ++;
             int user_guesses = 0;
             if(repeat){    
-                value = checklimit(limit);
+                value = checklimit(limit, count);
                 if (value != 0){
                     while(count > value){
                         System.out.println("You have reached your limit!");
@@ -116,7 +116,7 @@ public class main {
             }
             // System.out.println("you entered " + ans1);
             if(ans1 == 1){    
-                System.out.println("---------------------------------------------------\nIn this game you have infinite chances,\nto guess the number choosen by the computer\nRules-\n-You have to enter the range in which,\n the computer will choose the number \n-if you want to exit or give up ,\n while guessing the number just enter '-1'\n---------------------------------------------------\n");
+                System.out.println("---------------------------------------------------\nIn this game you have infinite chances,\nto guess the number choosen by the computer\nGuide-\n-You have to enter the range in which,\n the computer will choose the number \n-if you want to exit or give up ,\n while guessing the number just enter '-1'\n---------------------------------------------------\n");
                 while(again){
                     System.out.print("Starting...\nEnter the range (0-?): ");
                     limit = checkint(limit);
@@ -135,6 +135,7 @@ public class main {
             }
             else if(ans1 == 2){
                 // System.out.println("Entered the second if");
+                System.out.println("---------------------------------------------------\nIn this game you have finite chances,\nto guess the number choosen by the computer\nGuide-\n-You have to enter the range in which,\n the computer will choose the number \n-if you want to exit or give up ,\n while guessing the number just enter '-1'\n---------------------------------------------------\n");
                 while(again){
                     System.out.print("Starting...\nEnter the range (0-?): ");                    
                     limit = checkint(limit);
